@@ -22,28 +22,23 @@ int main()
 	int n,m;
 	cin >> n >> m;
 	int arr[m];
-	priority_queue<int> pq;
 	for(int i = 0; i<m;i++){
 		int f;
 		cin >> f;
 		arr[i] = f;
-		pq.push(f);
 	}
-	int ans = INT_MAX;
-	while(!pq.empty()){
-		int f = pq.top();
-		pq.pop();
-		if(pq.empty()){
-			break;
-		}else{
-			int s = pq.top();
-			pq.pop();
-			int diff = f-s;
-			if(diff < ans){
-				ans = diff;
-			}	
+	sort(arr,arr+m);
+	int minDiff = INT_MAX;
+	for(int i = 0; i <= m-n;i++){
+		int diff = arr[i+n-1] - arr[i];
+		if(diff < minDiff){
+			minDiff = diff;
 		}
 	}
-	cout << ans << endl;
+	if(m-n == 0){
+		cout << abs(arr[0] - arr[n-1]) << endl;
+	}else{
+		cout << minDiff << endl;
+	}
 }
 

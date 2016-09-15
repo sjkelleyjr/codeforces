@@ -1,0 +1,36 @@
+// Create your own template by modifying this file!
+#include <bits/stdc++.h>
+using namespace std;
+
+#ifdef DEBUG
+     #define debug(args...)            {dbg,args; cerr<<endl;}
+#else
+    #define debug(args...)              // Just strip off all debug tokens
+#endif
+
+struct debugger
+{
+    template<typename T> debugger& operator , (const T& v)
+    {    
+        cerr<<v<<" ";    
+        return *this;    
+    }
+} dbg;
+
+int main() 
+{
+	int n;
+	cin >> n;
+	vector<pair<int,char> >  cards;
+	for(int i = 0; i<n;i++){
+		int num;
+		char suit;
+		cin >> num >> suit;
+		cout << num << " " << suit << endl;
+		cards.push_back(make_pair(num,suit));
+	}
+	for(auto i: cards){
+		cout << i.first << " " <<  i.second;
+	}
+}
+

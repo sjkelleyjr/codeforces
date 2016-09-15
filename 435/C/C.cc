@@ -21,15 +21,43 @@ int main()
 {
 	int n;
 	cin >> n;
-	char matrix[2000][2000];
 	int a[n];
+	long total(0), currentY(0), minY(1e6), maxY(-1e6); 
 	for(int i = 0; i<n;i++){
 		int a_i;
 		cin >> a_i;
 		a[i] = a_i;
+		total += a_i;
+		currentY += ((i%2) ? -1 : 1) * a_i;
+		if(currentY < minY){
+			minY = currentY;
+		}
+		if(currentY > maxY){
+			maxY = currentY;
+		}
+		
 	}
-	//calc points in the matrix +1000
-	//put the chars between them
-	//how to print?
-}
+	if(minY > 0) minY = 0;
+	if(maxY < 0) maxY = 0;
+	string line;
+	for(long i = 0; i<total;i++){
+		line += ' ';
+	}
+	vector<string> cardio(maxY - minY, line);
+	long x(0), y(0);
+	for(int i = 0; i< n;i++){
+		if(i%2){
+			for(int j = 0; j < a[i];j++){
+				cardio[-minY + --y][x++] = '\\';
+			}
+		}else{
+			for(int j = 0; j < a[i];j++){
+				cardio[-minY + y++][x++] = '/';
+			}
 
+		}
+	}
+	for(long i = cardio.size()-1; i >= 0; i--){
+		cout << cardio[i] << endl;
+	}
+}
