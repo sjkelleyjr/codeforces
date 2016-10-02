@@ -18,68 +18,46 @@ struct debugger
 } dbg;
 
 
+string board[51];
+bool visited[51][51];
+bool findCycle = false;
+int dx[] = {1,-1,0,0};
+int dy[] = {0,0,1,-1};
+int n, m;
 
 
-bool dfs(int i, int j, vector<vector<char> >  arr, vector<vector<bool> >& visited){
-	char curr = arr[i][j];	
-	char up   = arr[i-1][j]; //up
-	char down = arr[i+1][j]; //down
-	char left = arr[i][j-1]; //left
-	char right= arr[i][j+1]; //right
-	visited[i][j] = true;
-	cout << "curr: " << curr << " u: " << up << " d: " << down << " l: " << left << " r: " << right << endl;
-	bool u = false;
-	bool d = false;
-	bool l = false;
-	bool r = false;
-	return false;
-	if(up == curr && !visited[i-1][j]){
-		u = dfs(i-1,j,arr,visited);
+void dfs(int x, int y, int fX, int fY, char needColor){
+	if(x<0||x >= n || y < 0 || y >= m){
+		return;
 	}
-	if(down == curr && !visited[i+1][j]){
-		d = dfs(i+1,j,arr,visited);
+	if(board[x][y] != needColor) return;
+	if(visited[x][y]){
+		findCycle = true;
+		return;
 	}
-	if(left == curr && !visited[i][j-1]){
-		l = dfs(i,j-1,arr,visited);
+	visited[x][y] = true;
+	for(int i =0; i < 4;i++){
+		int nextX = x + dx[i];
+		int nextY = y + dy[i];
+		if(nextX == fX && nextY == fY) continue;
+		dfs(nextX,nextY,x,y,needColor);
 	}
-	if(right == curr && !visited[i][j+1]){
-		r = dfs(i,j+1,arr,visited);
-	}
-	return(u || d || l || r);
+
 }
-
 
 int main() 
 {
-
-	int n,m;
-	vector<vector<char> > arr(n+10, vector<char>(m+10));
 	cin >> n >> m;
-	vector<vector<bool> > visited(n+10,vector<bool>(m+10));
-	for(int i =0 ; i<n+1;i++){
-		for(int j =0 ; j < m+1;j++){
-			arr[i][j] = '.'; //outside the board.
-			visited[i][j] = false;
-		}
-		//cout << endl;
+	for(int i = 0; i < n;i++){
+		cin >>  board[i];
 	}
-	for(int i =0 ; i<n;i++){
-		for(int j =0 ; j < m;j++){
-			char c;
-			cin >> c;
-			arr[i+1][j+1] = c;
-		}
-	}
-	//for all items in the array, dfs, if we get back to ourself print YES, at the end print NO
-	for(int i =0 ; i<n;i++){
-		for(int j =0 ; j < m;j++){
-			bool t = dfs(i+1,j+1,arr,visited);
-			if(t){
-			      cout << "Yes" << endl;
-			      return 0;
+	memset(visited,false,sizeof(visited));
+	for(int i =0; i < n;i++){
+		for(int j =0; j < m;j++){
+			if(!visited[i][j]){
+				dfs(i,j,-1,-1,board[i][j]);
 			}
 		}
 	}
-	cout << "NO" << endl;
+	cout << (findCycle ? "Yes" : "No") << endl;
 }
-
