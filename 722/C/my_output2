@@ -1,0 +1,45 @@
+upper: 
+5 LARGEST: 5
+
+lower: 
+3 2 1 
+
+
+
+5
+upper: 
+3 1 5 LARGEST: 5
+
+lower: 
+1 
+
+
+
+5
+upper: 
+1 5 LARGEST: 5
+
+lower: 
+1 1 
+
+
+
+5
+upper: 
+LARGEST: 0
+
+lower: 
+1 1 1 1 
+
+
+
+2
+upper: 
+1 1 1 1 LARGEST: 1
+
+lower: 
+
+
+
+
+1

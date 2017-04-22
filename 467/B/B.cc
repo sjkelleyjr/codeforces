@@ -21,9 +21,20 @@ int main()
 {
 	int n,m,k;
 	cin >> n >> m >> k;
-	for(int i = 0; i< m+1;i++){
+	vector<long long> nums(m+1);
+	int ans = 0;
+	for(int i = 0; i <= m;i++){
 		long long x;
 		cin >> x;
+		nums[i] = x;
 	}
+	for(int i = 0; i < m;i++){
+		long long o = nums[i] ^ nums[nums.size()-1];
+		int count = __builtin_popcount(o);
+		if(count <= k){
+			ans++;
+		}
+	}
+	cout << ans << endl;
 }
 

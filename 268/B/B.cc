@@ -19,6 +19,17 @@ struct debugger
 
 int main() 
 {
-
+	int n;
+	cin >> n;
+	//I only followed the first sequence here
+	//I did get the plus n at the end though
+	//cout << n*(n-1) + n-1 << endl;
+	int ans = 0;
+	for(int i = 1; i< n;i++){
+		ans += (n-i)*i; //it takes i presses to get to this guess
+				//then n-i guesses
+	}
+	ans += n; //at the end you have to press the n buttons to unlock after you've guessed the sequence
+	cout << ans << endl;
 }
 

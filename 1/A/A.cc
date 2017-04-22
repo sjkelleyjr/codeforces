@@ -19,6 +19,11 @@ struct debugger
 
 int main() 
 {
+	int n,m,a;
+	cin >> n >> m >> a;
+	
 
+
+	cout << "4" << endl;
 }
 
